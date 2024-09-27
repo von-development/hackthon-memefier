@@ -37,6 +37,14 @@ dependencies:
 
   google_fonts: ^6.2.1
 
+  # Remove video_trimmer for now as it might be causing issues
+  # video_trimmer: ^3.0.1
+
+  image: ^4.0.17  # For image processing
+  path_provider: ^2.1.1  # For saving images
+  photo_view: ^0.14.0  # For zooming and panning
+  flutter_colorpicker: ^1.0.3  # For color selection
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,7 +54,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -92,6 +100,9 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   assets:
-    - assets/videos/
     - assets/images/
+    - assets/videos/
+    # Remove or comment out the following lines:
+    # - assets/images/recent_media_0.jpg
+    # - assets/images/recent_media_1.jpg
 

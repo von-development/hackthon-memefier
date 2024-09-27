@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/bottom_nav_bar.dart';
+import '../constants/colors.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -13,35 +15,37 @@ class SearchScreen extends StatelessWidget {
           style: GoogleFonts.roboto(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: const Color(0xFF00AEEF), // Sky Blue
+            color: AppColors.skyBlue,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         elevation: 0,
       ),
-      body: Column(
+      body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: SearchBar(),
           ),
           TrendingSection(),
           SuggestedAccountsSection(),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: 1),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 1),
     );
   }
 }
 
 class SearchBar extends StatelessWidget {
+  const SearchBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF00AEEF)),
+        border: Border.all(color: AppColors.skyBlue),
         borderRadius: BorderRadius.circular(25),
       ),
       child: TextField(
@@ -49,9 +53,9 @@ class SearchBar extends StatelessWidget {
           hintText: 'Search memes, users, hashtags',
           hintStyle: GoogleFonts.roboto(
             fontSize: 14,
-            color: const Color(0xFF003B73),
+            color: AppColors.deepBlue,
           ),
-          prefixIcon: const Icon(Icons.search, color: Color(0xFF00AEEF)),
+          prefixIcon: const Icon(Icons.search, color: AppColors.skyBlue),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: 12),
         ),
@@ -61,7 +65,9 @@ class SearchBar extends StatelessWidget {
 }
 
 class TrendingSection extends StatelessWidget {
-  final List<String> trendingHashtags = [
+  const TrendingSection({super.key});
+
+  static const List<String> trendingHashtags = [
     '#FlutterMemes',
     '#CodingHumor',
     '#TechJokes',
@@ -81,7 +87,7 @@ class TrendingSection extends StatelessWidget {
             style: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF003B73),
+              color: AppColors.deepBlue,
             ),
           ),
         ),
@@ -95,11 +101,11 @@ class TrendingSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO: Navigate to Hashtag Results Screen
+                    // Navigate to Hashtag Results Screen when implemented
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF5F5F5),
-                    foregroundColor: const Color(0xFF00AEEF),
+                    backgroundColor: AppColors.lightGray,
+                    foregroundColor: AppColors.skyBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -116,10 +122,12 @@ class TrendingSection extends StatelessWidget {
 }
 
 class SuggestedAccountsSection extends StatelessWidget {
-  final List<Map<String, String>> suggestedUsers = [
-    {'username': 'flutter_dev', 'avatar': 'assets/images/user1.jpg'},
-    {'username': 'code_wizard', 'avatar': 'assets/images/user2.jpg'},
-    {'username': 'meme_master', 'avatar': 'assets/images/user3.jpg'},
+  const SuggestedAccountsSection({super.key});
+
+  static const List<String> suggestedUsers = [
+    'flutter_dev',
+    'code_wizard',
+    'meme_master',
   ];
 
   @override
@@ -134,7 +142,7 @@ class SuggestedAccountsSection extends StatelessWidget {
             style: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF003B73),
+              color: AppColors.deepBlue,
             ),
           ),
         ),
@@ -144,8 +152,7 @@ class SuggestedAccountsSection extends StatelessWidget {
           itemCount: suggestedUsers.length,
           itemBuilder: (context, index) {
             return UserCard(
-              username: suggestedUsers[index]['username']!,
-              avatarUrl: suggestedUsers[index]['avatar']!,
+              username: suggestedUsers[index],
             );
           },
         ),
@@ -156,31 +163,31 @@ class SuggestedAccountsSection extends StatelessWidget {
 
 class UserCard extends StatelessWidget {
   final String username;
-  final String avatarUrl;
 
-  const UserCard({required this.username, required this.avatarUrl});
+  const UserCard({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
         radius: 20,
-        backgroundImage: AssetImage(avatarUrl),
+        backgroundColor: AppColors.lightGray,
+        child: Icon(Icons.person, color: AppColors.deepBlue),
       ),
       title: Text(
         username,
         style: GoogleFonts.roboto(
           fontSize: 14,
-          color: const Color(0xFF003B73),
+          color: AppColors.deepBlue,
         ),
       ),
       trailing: ElevatedButton(
         onPressed: () {
-          // TODO: Implement follow functionality
+          // Implement follow functionality when ready
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF00AEEF),
-          foregroundColor: Colors.white,
+          backgroundColor: AppColors.skyBlue,
+          foregroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -188,46 +195,7 @@ class UserCard extends StatelessWidget {
         child: const Text('Follow'),
       ),
       onTap: () {
-        // TODO: Navigate to User Profile Screen
-      },
-    );
-  }
-}
-
-class BottomNavBar extends StatelessWidget {
-  final int currentIndex;
-
-  const BottomNavBar({required this.currentIndex});
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      selectedItemColor: const Color(0xFF00AEEF),
-      unselectedItemColor: const Color(0xFF003B73),
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      ],
-      onTap: (index) {
-        if (index != currentIndex) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacementNamed(context, '/');
-              break;
-            case 1:
-              Navigator.pushReplacementNamed(context, '/search');
-              break;
-            // TODO: Add cases for other screens when they are implemented
-            default:
-              break;
-          }
-        }
+        // Navigate to User Profile Screen when implemented
       },
     );
   }

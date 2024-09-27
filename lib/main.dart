@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'screens/search_screen.dart';
+import 'screens/create_screen.dart';
+import 'screens/notifications_screen.dart';
+import 'screens/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +24,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/search': (context) => const SearchScreen(),
+        '/create': (context) => const CreateScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
     );
   }
